@@ -4,6 +4,7 @@ This module contains functions for handling data.
 
 import os
 
+import joblib
 import pandas as pd
 from dotenv import load_dotenv
 from sklearn.model_selection import train_test_split
@@ -54,3 +55,32 @@ def split_data(data: pd.DataFrame, subseet: str = "train") -> tuple:
     if subseet == "test":
         return X_test, y_test
     return X_train, y_train
+
+
+def save_pipeline(pipeline: object) -> None:
+    """
+    Save the pipeline.
+
+    Args:
+        pipeline (object): Pipeline to save.
+    """
+    save_path = os.getenv("MODEL_PATH")
+    os.makedirs(save_path, exist_ok=True)
+    model_name = os.getenv("MODEL_NAME")
+    model_path = os.path.join(save_path, model_name)
+    joblib.dump(pipeline, model_path)
+    print(f"Pipeline saved at {model_path}")
+
+
+def load_pipeline() -> object:
+    """
+    Load the pipeline.
+
+    Returns:
+        object: Loaded pipeline.
+    """
+    save_path = os.getenv("MODEL_PATH")
+    model_name = os.getenv("MODEL_NAME")
+    model_path = os.path.join(save_path, model_name)
+    pipeline = joblib.load(model_path)
+    return pipeline
