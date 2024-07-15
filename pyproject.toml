@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "waterquality"
+version = "0.1.0"
+description = ""
+authors = ["MrudhuhasM <mrudhuhas@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.2"
+scikit-learn = "^1.5.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.1"
+python-dotenv = "^1.0.1"
+isort = "^5.13.2"
+black = "^24.4.2"
+pytest = "^8.2.2"
+flake8 = "^7.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
