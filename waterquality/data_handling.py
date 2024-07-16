@@ -70,17 +70,3 @@ def save_pipeline(pipeline: object) -> None:
     model_path = os.path.join(save_path, model_name)
     joblib.dump(pipeline, model_path)
     print(f"Pipeline saved at {model_path}")
-
-
-def load_pipeline() -> object:
-    """
-    Load the pipeline.
-
-    Returns:
-        object: Loaded pipeline.
-    """
-    save_path = os.getenv("MODEL_PATH")
-    model_name = os.getenv("MODEL_NAME")
-    model_path = os.path.join(save_path, model_name)
-    pipeline = joblib.load(model_path)
-    return pipeline

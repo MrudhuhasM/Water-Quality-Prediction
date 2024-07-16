@@ -1,9 +1,24 @@
+import os
+
+import joblib
 import pandas as pd
 from dotenv import load_dotenv
 
-from waterquality.data_handling import load_pipeline
-
 load_dotenv()
+
+
+def load_pipeline() -> object:
+    """
+    Load the pipeline.
+
+    Returns:
+        object: Loaded pipeline.
+    """
+    save_path = os.getenv("MODEL_PATH")
+    model_name = os.getenv("MODEL_NAME")
+    model_path = os.path.join(save_path, model_name)
+    pipeline = joblib.load(model_path)
+    return pipeline
 
 
 def make_prediction(data):
