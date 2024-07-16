@@ -15,9 +15,10 @@ COPY ./pyproject.toml ./poetry.lock ./
 
 COPY . .
 
-RUN poetry install --no-root --no-dev && poetry build \
-    && pip install dist/*.whl && \
-    rm -rf dist && rm -rf build
+RUN poetry install --no-root --no-dev \
+    && poetry build \
+    && pip install dist/*.whl \
+    && rm -rf dist && rm -rf build
 
 
 ENV DATA_PATH='/home/appuser/src/waterquality/data'
@@ -38,10 +39,10 @@ RUN python waterquality/pipeline.py
 
 FROM python:3.12-slim AS api
 
-COPY --from=BUILD  /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages
-COPY  --from=BUILD /home/appuser/src/waterquality/models /home/appuser/src/waterquality/models
-COPY  --from=BUILD /home/appuser/src/waterquality/predict.py /home/appuser/src/waterquality/predict.py
-COPY  --from=BUILD /home/appuser/src/app.py /home/appuser/src/app.py
+COPY --from=build  /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages
+COPY  --from=build /home/appuser/src/waterquality/models /home/appuser/src/waterquality/models
+COPY  --from=build /home/appuser/src/waterquality/predict.py /home/appuser/src/waterquality/predict.py
+COPY  --from=build /home/appuser/src/app.py /home/appuser/src/app.py
 
 WORKDIR /home/appuser/src
 

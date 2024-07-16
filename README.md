@@ -1,0 +1,1 @@
+In this project i am going to build an ML model to predict water quality
